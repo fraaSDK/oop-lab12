@@ -96,22 +96,16 @@ namespace DelegatesAndEvents
         /// <inheritdoc cref="object.Equals(object?)" />
         public override bool Equals(object obj)
         {
-            // TODO improve
-            return base.Equals(obj);
+            if (obj is null || obj.GetType() != GetType()) return false;
+
+            var testObj = obj as ObservableList<TItem>;
+            return testObj != null && _list.SequenceEqual(testObj._list);
         }
 
         /// <inheritdoc cref="object.GetHashCode" />
-        public override int GetHashCode()
-        {
-            // TODO improve
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => _list.GetHashCode();
 
         /// <inheritdoc cref="object.ToString" />
-        public override string ToString()
-        {
-            // TODO improve
-            return base.ToString();
-        }
+        public override string ToString() => $"[{string.Join(", ", _list)}]";
     }
 }
